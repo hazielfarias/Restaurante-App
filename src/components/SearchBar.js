@@ -37,7 +37,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginTop: 10,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 1.5,
+        borderColor: '#545454'
     },
     input:{
         flex: 1,
