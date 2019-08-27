@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {View, StyleSheet, StatusBar, Text} from 'react-native'
+import {View, StyleSheet, StatusBar, Text, ScrollView} from 'react-native'
 import SearchBar from '../components/SearchBar';
 import useResults from '../hooks/useResults';
 import ResultsList from "../components/ResultsList";
 
-const SearchScreen=()=>{
-
+const SearchScreen= ({navigation}) =>{
+    
     const [term, setTerm] = useState('')
     const [searchApi, results, errorMessage] = useResults()
 
@@ -14,7 +14,8 @@ const SearchScreen=()=>{
             return result.price === price
         })
     }
-    return <View style={styles.view}>
+    return <>
+     <View style={styles.view}>
         <StatusBar backgroundColor="blue" barStyle='light-content' />
         <SearchBar 
             term={term} 
@@ -22,11 +23,24 @@ const SearchScreen=()=>{
             onTermSubmit={()=>searchApi(term)}
             />
         {errorMessage ? <Text style={{color:'white',marginHorizontal: 15, marginTop:5}}>{errorMessage}</Text> : null}
-        <Text style={{color:'white',marginHorizontal: 15, marginVertical:5}}>Você obteve {results.length} resultados.</Text>
-        <ResultsList results={filterResultsByPrice('$')} title='Custo baixo'/>
-        <ResultsList results={filterResultsByPrice('$$')} title='Custo Médio'/>
-        <ResultsList results={filterResultsByPrice('$$$')} title='Alto Custo'/> 
+        <ScrollView>
+            <ResultsList 
+                results={filterResultsByPrice('$')} 
+                title='Custo baixo'
+                navigation={navigation}/>
+            <ResultsList 
+                results={filterResultsByPrice('$$')} 
+                title='Custo Médio'
+                navigation={navigation}
+                />
+            <ResultsList 
+                results={filterResultsByPrice('$$$')} 
+                title='Alto Custo'
+                navigation={navigation}
+                /> 
+        </ScrollView>
     </View>
+    </>
 
 }
 
