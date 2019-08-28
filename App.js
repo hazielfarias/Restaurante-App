@@ -24,8 +24,7 @@ const navigator = createStackNavigator({
       fontWeight: 'bold'
     },
     headerBackTitle: "Voltar"
-
+    
   }
-
 })
 export default createAppContainer(navigator)
